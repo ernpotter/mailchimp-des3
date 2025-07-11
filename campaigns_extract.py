@@ -25,10 +25,10 @@ client.set_config({
 })
 
 # Set the date range to only include campaigns from "yesterday"
-today = date.today()
-yesterday = today - timedelta(days=1)
-since_create_time = f"{yesterday}T00:00:00+00:00"
-before_create_time = f"{yesterday}T23:59:59+00:00"
+start_date = date(2025, 4, 1)
+end_date = date.today() - timedelta(days=1)
+since_create_time = f"{start_date}T00:00:00+00:00"
+before_create_time = f"{end_date}T23:59:59+00:00"
 
 # Prepare to save the data. All output files will be stored in the 'data' directory
 # Each file will be named with a timestamp to avoid overwriting
