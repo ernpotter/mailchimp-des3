@@ -1,4 +1,4 @@
 .env
 .venv
 *\data*
-mailchimp_extraction.log
+mailchimp_extraction
