@@ -1,4 +1,4 @@
 .env
 .venv
-data.zip
 *\data*
+mailchimp_extraction
