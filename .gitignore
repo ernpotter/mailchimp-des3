@@ -2,3 +2,4 @@
 .venv
 *\data*
 mailchimp_extraction
+__pycache__
