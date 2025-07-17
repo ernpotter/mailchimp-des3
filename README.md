@@ -1,6 +1,6 @@
-# mailchimp-des3
+## Mailchimp ETL Pipeline
 
-# 📬 Mailchimp ETL Pipeline
+# 📬 Overview
 
 A simple Python ETL pipeline that:
 
