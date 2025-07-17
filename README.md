@@ -36,7 +36,7 @@ A simple Python ETL pipeline that:
 
 ```bash
 python mailchimp_extract_and_load.py
-\\\
+```
 
 ## 🔐 Environment Variables
 
