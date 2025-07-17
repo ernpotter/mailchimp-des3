@@ -38,6 +38,8 @@ A simple Python ETL pipeline that:
 python mailchimp_extract_and_load.py
 ```
 
+---
+
 ## 🔐 Environment Variables
 
 Create a `.env` file in the root directory with the following:
@@ -48,6 +50,37 @@ MAILCHIMP_SERVER_PREFIX=usX
 AWS_ACCESS_KEY_ID=your_aws_access_key
 AWS_SECRET_ACCESS_KEY=your_aws_secret
 AWS_BUCKET_NAME=your_bucket_name
+```
 
+---
 
+## ✅ Requirements
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🧪 Testing Individual Functions
+
+You can test the functions on their own by importing them in an interactive session or script:
+
+```python
+from modules.extract_mailchimp_data import extract_mailchimp_data
+from modules.load_to_s3 import load_to_s3
+
+extract_mailchimp_data()
+load_to_s3()
+```
+
+---
+
+## 📌 Notes
+
+- Only the most recent JSON file in each folder is uploaded to S3
+- Files are deleted locally after successful upload
+- The full process is handled in a single script (mailchimp_extract_and_load.py) that calls both functions
 
