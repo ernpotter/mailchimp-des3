@@ -1,8 +1,8 @@
-# Mailchimp ETL Pipeline
+# Mailchimp ELT Pipeline
 
 ## 📬 Overview
 
-A simple Python ETL pipeline that:
+A simple Python ELT pipeline that:
 
 - Extracts email campaign and activity data from the Mailchimp API
 - Stores the JSON files in a structured local folder (`data/email_activity/`, `data/campaigns/`)
