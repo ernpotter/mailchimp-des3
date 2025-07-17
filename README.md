@@ -35,6 +35,18 @@ A simple Python ETL pipeline that:
 4. Run the ETL script:
 
 ```bash
-python run_etl.py
+python mailchimp_extract_and_load.py
+
+## 🔐 Environment Variables
+
+Create a `.env` file in the root directory with the following:
+
+```dotenv
+MAILCHIMP_API_KEY=your_key_here
+MAILCHIMP_SERVER_PREFIX=usX
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret
+AWS_BUCKET_NAME=your_bucket_name
+
 
 
