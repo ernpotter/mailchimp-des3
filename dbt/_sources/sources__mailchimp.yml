@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: mailchimp
+    database: <your_database>
+    schema: <your_schema>
+    tables:
+      - name: mailchimp_campaigns_raw_airbyte
+      - name: mailchimp_email_activity_raw_airbyte
