@@ -1,0 +1,297 @@
+version: 2
+
+models:
+  - name: stg_mailchimp___campaigns
+    description: "Raw Mailchimp campaigns data extracted via Airbyte. Contains nested fields under 'json_data' column."
+    columns:
+      - name: json_data
+        data_type: variant
+        description: ""
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_mailchimp___email_activity
+    description: "Raw Mailchimp email activity data extracted via Airbyte. Contains nested fields under 'json_data' column."
+    columns:
+      - name: json_data
+        data_type: variant
+        description: ""
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_mailchimp_campaigns_unnested
+    description: "Flattened Mailchimp campaign data extracted from the raw Airbyte JSON. Includes campaign metadata, delivery status, recipients, report summary, settings, and tracking details."
+    columns:
+      - name: archive_url
+        data_type: varchar
+        description: ""
+
+      - name: content_type
+        data_type: varchar
+        description: ""
+
+      - name: create_time
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: emails_sent
+        data_type: number
+        description: ""
+
+      - name: id
+        data_type: varchar
+        description: "Unique ID of the campaign."
+        tests:
+          - not_null
+          - unique
+
+      - name: long_archive_url
+        data_type: varchar
+        description: ""
+
+      - name: needs_block_refresh
+        data_type: boolean
+        description: ""
+
+      - name: resendable
+        data_type: boolean
+        description: ""
+
+      - name: send_time
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: status
+        data_type: varchar
+        description: ""
+
+      - name: type
+        data_type: varchar
+        description: ""
+
+      - name: web_id
+        data_type: number
+        description: ""
+
+      - name: can_cancel
+        data_type: boolean
+        description: ""
+
+      - name: emails_canceled
+        data_type: number
+        description: ""
+
+      - name: delivery_emails_sent
+        data_type: number
+        description: ""
+
+      - name: delivery_enabled
+        data_type: boolean
+        description: ""
+
+      - name: delivery_status
+        data_type: varchar
+        description: ""
+
+      - name: list_id
+        data_type: varchar
+        description: ""
+
+      - name: list_is_active
+        data_type: boolean
+        description: ""
+
+      - name: list_name
+        data_type: varchar
+        description: ""
+
+      - name: recipient_count
+        data_type: number
+        description: ""
+
+      - name: click_rate
+        data_type: float
+        description: ""
+
+      - name: clicks
+        data_type: number
+        description: ""
+
+      - name: open_rate
+        data_type: float
+        description: ""
+
+      - name: opens
+        data_type: number
+        description: ""
+
+      - name: subscriber_clicks
+        data_type: number
+        description: ""
+
+      - name: unique_opens
+        data_type: number
+        description: ""
+
+      - name: ecommerce_orders
+        data_type: number
+        description: ""
+
+      - name: ecommerce_revenue
+        data_type: float
+        description: ""
+
+      - name: ecommerce_spent
+        data_type: float
+        description: ""
+
+      - name: authenticate
+        data_type: boolean
+        description: ""
+
+      - name: auto_footer
+        data_type: boolean
+        description: ""
+
+      - name: auto_tweet
+        data_type: boolean
+        description: ""
+
+      - name: drag_and_drop
+        data_type: boolean
+        description: ""
+
+      - name: fb_comments
+        data_type: boolean
+        description: ""
+
+      - name: from_name
+        data_type: varchar
+        description: ""
+
+      - name: inline_css
+        data_type: boolean
+        description: ""
+
+      - name: preview_text
+        data_type: varchar
+        description: ""
+
+      - name: reply_to
+        data_type: varchar
+        description: ""
+
+      - name: subject_line
+        data_type: varchar
+        description: ""
+
+      - name: template_id
+        data_type: number
+        description: ""
+
+      - name: timewarp
+        data_type: boolean
+        description: ""
+
+      - name: title
+        data_type: varchar
+        description: ""
+
+      - name: use_conversation
+        data_type: boolean
+        description: ""
+
+      - name: ecomm360
+        data_type: boolean
+        description: ""
+
+      - name: goal_tracking
+        data_type: boolean
+        description: ""
+
+      - name: html_clicks
+        data_type: boolean
+        description: ""
+
+      - name: tracking_opens
+        data_type: boolean
+        description: ""
+
+      - name: text_clicks
+        data_type: boolean
+        description: ""
+
+      - name: extracted_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: generation_id
+        data_type: number
+        description: ""
+
+      - name: raw_id
+        data_type: varchar
+        description: ""
+
+      - name: sync_id
+        data_type: number
+        description: ""
+
+  - name: stg_mailchimp_email_activity_unnested
+    description: "Flattened Mailchimp email activity data. Contains individual actions performed by recipients such as opens, clicks, and unsubscribes."
+    columns:
+      - name: action
+        data_type: varchar
+        description: ""
+
+      - name: campaign_id
+        data_type: varchar
+        description: "Foriegn key for campaign data"
+        tests:
+          - not_null
+
+      - name: email_address
+        data_type: varchar
+        description: ""
+
+      - name: email_id
+        data_type: varchar
+        description: "Unique Mailchimp ID for the email"
+        tests:
+          - not_null
+
+      - name: ip
+        data_type: varchar
+        description: ""
+
+      - name: list_id
+        data_type: varchar
+        description: ""
+
+      - name: list_is_active
+        data_type: boolean
+        description: ""
+
+      - name: action_timestamp
+        data_type: timestamp_tz
+        description: ""
+
+      - name: extracted_at
+        data_type: timestamp_ltz
+        description: ""
+
+      - name: generation_id
+        data_type: number
+        description: ""
+
+      - name: raw_id
+        data_type: varchar
+        description: ""
+
+      - name: sync_id
+        data_type: number
+        description: "Raw unique identifier from the source system."
+        tests:
+          - not_null
