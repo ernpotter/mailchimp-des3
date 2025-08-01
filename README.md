@@ -106,6 +106,10 @@ Once files are in S3, they’re staged and transformed in Snowflake.
 - `transform.sql`: Unnests the raw JSON and creates structured silver layer tables
 - `stored_procedure.sql`: A Snowflake stored procedure that keeps your silver tables fresh via streams and tasks
 
+### Silver Layer Schema
+<img width="770" height="699" alt="image" src="https://github.com/user-attachments/assets/8e88ae56-ac85-42ca-8383-9cc54ec929a6" />
+
+
 ---
 
 ## dbt Project
