@@ -115,6 +115,9 @@ Once files are in S3, they’re staged and transformed in Snowflake.
 ## dbt Project
 The dbt layer transforms and organizes your Snowflake data using the medallion architecture: staging → intermediate → marts
 
+### dbt Project Structure
+<img width="1401" height="300" alt="image" src="https://github.com/user-attachments/assets/a1696978-c68e-4de2-9e61-9b744f861f5c" />
+
 ### Subfolders in `/dbt/`:
 - `_sources/`:
   - Contains sources.yml
