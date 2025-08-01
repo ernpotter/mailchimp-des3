@@ -13,7 +13,7 @@ from mailchimp_marketing.api_client import ApiClientError  # Specific error clas
 
 # logging to help me debug rate limits, schema changes, and system errors
 logging.basicConfig(
-    filename='mailchimp_extraction.log',
+    filename='logs/mailchimp_extraction.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )

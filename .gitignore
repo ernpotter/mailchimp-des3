@@ -3,3 +3,5 @@
 *\data*
 mailchimp_extraction
 __pycache__
+logs
+*.log
