@@ -1,4 +1,4 @@
-# Mailchimp ELT Pipeline
+# Mailchimp Pipeline
 
 This project extracts Mailchimp data via API, stages it in S3, and transforms it into clean, queryable tables in Snowflake using a dbt medallion architecture (staging → intermediate → marts). The end goal is a reliable and automated source of truth for campaign performance and engagement.
 
