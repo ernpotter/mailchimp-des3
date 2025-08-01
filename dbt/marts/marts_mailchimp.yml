@@ -1,0 +1,5 @@
+##To do: generate_model_yaml (https://github.com/dbt-labs/dbt-codegen/tree/0.13.1/#generate_source-source)
+
+{{ codegen.generate_model_yaml(
+    model_names=['customers']
+) }}
