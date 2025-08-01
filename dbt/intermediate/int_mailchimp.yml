@@ -1,0 +1,549 @@
+version: 2
+
+models:
+  - name: int_mailchimp_dim_campaign
+    description: "Intermediate dimensional model for core Mailchimp campaign metadata."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for the campaign."
+        tests:
+          - unique
+          - not_null
+
+      - name: archive_url
+        data_type: varchar
+        description: ""
+
+      - name: long_archive_url
+        data_type: varchar
+        description: ""
+
+      - name: content_type
+        data_type: varchar
+        description: ""
+
+      - name: create_time
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: send_time
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: status
+        data_type: varchar
+        description: ""
+
+      - name: type
+        data_type: varchar
+        description: ""
+
+      - name: web_id
+        data_type: number
+        description: ""
+
+      - name: resendable
+        data_type: boolean
+        description: ""
+
+      - name: needs_block_refresh
+        data_type: boolean
+        description: ""
+
+      - name: template_id
+        data_type: number
+        description: ""
+
+      - name: list_id
+        data_type: varchar
+        description: "Foriegn key for lists"
+
+  - name: int_mailchimp_dim_delivery_status
+    description: "Intermediate dimensional model for campaign delivery status, including whether the campaign was successfully sent or canceled."
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for the campaign"
+        tests:
+          - not_null
+          - unique
+
+      - name: can_cancel
+        data_type: boolean
+        description: ""
+
+      - name: emails_canceled
+        data_type: number
+        description: ""
+
+      - name: emails_sent
+        data_type: number
+        description: ""
+
+      - name: delivery_enabled
+        data_type: boolean
+        description: ""
+
+      - name: status
+        data_type: varchar
+        description: ""
+
+  - name: int_mailchimp_dim_list
+    description: "Intermediate dimensional model for Mailchimp audience lists targeted in campaigns."
+    columns:
+      - name: list_id
+        data_type: varchar
+        description: "Unique identifier for the Mailchimp list."
+        tests:
+          - not_null
+
+      - name: list_name
+        data_type: varchar
+        description: ""
+
+      - name: list_is_active
+        data_type: boolean
+        description: ""
+
+      - name: recipient_count
+        data_type: number
+        description: ""
+
+  - name: int_mailchimp_dim_template
+    description: "Intermediate dimensional model for email templates used in Mailchimp campaigns"
+    columns:
+      - name: template_id
+        data_type: number
+        description: "Unique identifier for the email template."
+        tests:
+          - not_null
+
+      - name: title
+        data_type: varchar
+        description: ""
+
+      - name: subject_line
+        data_type: varchar
+        description: ""
+
+      - name: preview_text
+        data_type: varchar
+        description: ""
+
+      - name: from_name
+        data_type: varchar
+        description: ""
+
+      - name: reply_to
+        data_type: varchar
+        description: ""
+
+      - name: authenticate
+        data_type: boolean
+        description: ""
+
+      - name: auto_footer
+        data_type: boolean
+        description: ""
+
+      - name: auto_tweet
+        data_type: boolean
+        description: ""
+
+      - name: drag_and_drop
+        data_type: boolean
+        description: ""
+
+      - name: fb_comments
+        data_type: boolean
+        description: ""
+
+      - name: inline_css
+        data_type: boolean
+        description: ""
+
+      - name: timewarp
+        data_type: boolean
+        description: ""
+
+      - name: use_conversation
+        data_type: boolean
+        description: ""
+
+  - name: int_mailchimp_dim_tracking
+    description: "Intermediate dimensional model for tracking configuration settings applied to Mailchimp campaigns"
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for the campaign."
+        tests:
+          - unique
+          - not_null
+
+      - name: ecomm360
+        data_type: boolean
+        description: ""
+
+      - name: goal_tracking
+        data_type: boolean
+        description: ""
+
+      - name: html_clicks
+        data_type: boolean
+        description: ""
+
+      - name: opens
+        data_type: number
+        description: ""
+
+      - name: text_clicks
+        data_type: boolean
+        description: ""
+
+  - name: int_mailchimp_fact_campaign_report_summary
+    description: ""
+    columns:
+      - name: campaign_id
+        data_type: varchar
+        description: "Intermediate fact model summarizing the campaign performance metrics like opens, clicks, and revenue."
+        tests:
+          - not_null
+
+      - name: click_rate
+        data_type: float
+        description: ""
+
+      - name: clicks
+        data_type: number
+        description: ""
+
+      - name: open_rate
+        data_type: float
+        description: ""
+
+      - name: opens
+        data_type: number
+        description: ""
+
+      - name: subscriber_clicks
+        data_type: number
+        description: ""
+
+      - name: unique_opens
+        data_type: number
+        description: ""
+
+      - name: ecommerce_orders
+        data_type: number
+        description: ""
+
+      - name: ecommerce_revenue
+        data_type: float
+        description: ""
+
+      - name: ecommerce_spent
+        data_type: float
+        description: ""
+
+  - name: int_mailchimp_fact_email_activity
+    description: "Intermediate fact model capturing recipient-level email actions such as opens and clicks."
+    columns:
+      - name: email_id
+        data_type: varchar
+        description: "Unique identifier for the email."
+
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for the campaign."
+
+      - name: email_address
+        data_type: varchar
+        description: ""
+
+      - name: action
+        data_type: varchar
+        description: ""
+
+      - name: action_timestamp
+        data_type: timestamp_tz
+        description: ""
+
+      - name: ip
+        data_type: varchar
+        description: ""
+
+      - name: list_id
+        data_type: varchar
+        description: ""
+
+  - name: int_mailchimp_unnest_campaigns
+    description: "Helper model used to unnest and flatten raw campaign data before further transformation."
+    columns:
+      - name: archive_url
+        data_type: varchar
+        description: ""
+
+      - name: content_type
+        data_type: varchar
+        description: ""
+
+      - name: create_time
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: emails_sent
+        data_type: number
+        description: ""
+
+      - name: id
+        data_type: varchar
+        description: "Unique identifier for the campaign."
+        tests:
+          - not_null
+          - unique
+
+      - name: long_archive_url
+        data_type: varchar
+        description: ""
+
+      - name: needs_block_refresh
+        data_type: boolean
+        description: ""
+
+      - name: resendable
+        data_type: boolean
+        description: ""
+
+      - name: send_time
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: status
+        data_type: varchar
+        description: ""
+
+      - name: type
+        data_type: varchar
+        description: ""
+
+      - name: web_id
+        data_type: number
+        description: ""
+
+      - name: can_cancel
+        data_type: boolean
+        description: ""
+
+      - name: emails_canceled
+        data_type: number
+        description: ""
+
+      - name: delivery_emails_sent
+        data_type: number
+        description: ""
+
+      - name: delivery_enabled
+        data_type: boolean
+        description: ""
+
+      - name: delivery_status
+        data_type: varchar
+        description: ""
+
+      - name: list_id
+        data_type: varchar
+        description: ""
+
+      - name: list_is_active
+        data_type: boolean
+        description: ""
+
+      - name: list_name
+        data_type: varchar
+        description: ""
+
+      - name: recipient_count
+        data_type: number
+        description: ""
+
+      - name: click_rate
+        data_type: float
+        description: ""
+
+      - name: clicks
+        data_type: number
+        description: ""
+
+      - name: open_rate
+        data_type: float
+        description: ""
+
+      - name: opens
+        data_type: number
+        description: ""
+
+      - name: subscriber_clicks
+        data_type: number
+        description: ""
+
+      - name: unique_opens
+        data_type: number
+        description: ""
+
+      - name: ecommerce_orders
+        data_type: number
+        description: ""
+
+      - name: ecommerce_revenue
+        data_type: float
+        description: ""
+
+      - name: ecommerce_spent
+        data_type: float
+        description: ""
+
+      - name: authenticate
+        data_type: boolean
+        description: ""
+
+      - name: auto_footer
+        data_type: boolean
+        description: ""
+
+      - name: auto_tweet
+        data_type: boolean
+        description: ""
+
+      - name: drag_and_drop
+        data_type: boolean
+        description: ""
+
+      - name: fb_comments
+        data_type: boolean
+        description: ""
+
+      - name: from_name
+        data_type: varchar
+        description: ""
+
+      - name: inline_css
+        data_type: boolean
+        description: ""
+
+      - name: preview_text
+        data_type: varchar
+        description: ""
+
+      - name: reply_to
+        data_type: varchar
+        description: ""
+
+      - name: subject_line
+        data_type: varchar
+        description: ""
+
+      - name: template_id
+        data_type: number
+        description: ""
+
+      - name: timewarp
+        data_type: boolean
+        description: ""
+
+      - name: title
+        data_type: varchar
+        description: ""
+
+      - name: use_conversation
+        data_type: boolean
+        description: ""
+
+      - name: ecomm360
+        data_type: boolean
+        description: ""
+
+      - name: goal_tracking
+        data_type: boolean
+        description: ""
+
+      - name: html_clicks
+        data_type: boolean
+        description: ""
+
+      - name: tracking_opens
+        data_type: boolean
+        description: ""
+
+      - name: text_clicks
+        data_type: boolean
+        description: ""
+
+      - name: extracted_at
+        data_type: timestamp_ntz
+        description: ""
+
+      - name: generation_id
+        data_type: number
+        description: ""
+
+      - name: raw_id
+        data_type: varchar
+        description: ""
+
+      - name: sync_id
+        data_type: number
+        description: ""
+
+  - name: int_mailchimp_unnest_email_activity
+    description: "Helper model used to unnest and flatten raw email activity records before applying business logic."
+    columns:
+      - name: action
+        data_type: varchar
+        description: ""
+
+      - name: campaign_id
+        data_type: varchar
+        description: "Unique identifier for the campaign."
+        tests:
+          - not_null
+
+      - name: email_address
+        data_type: varchar
+        description: ""
+
+      - name: email_id
+        data_type: varchar
+        description: "Unique identifier for the email."
+
+      - name: ip
+        data_type: varchar
+        description: ""
+
+      - name: list_id
+        data_type: varchar
+        description: ""
+
+      - name: list_is_active
+        data_type: boolean
+        description: ""
+
+      - name: action_timestamp
+        data_type: timestamp_tz
+        description: ""
+
+      - name: extracted_at
+        data_type: timestamp_ltz
+        description: ""
+
+      - name: generation_id
+        data_type: number
+        description: ""
+
+      - name: raw_id
+        data_type: varchar
+        description: ""
+
+      - name: sync_id
+        data_type: number
+        description: ""
